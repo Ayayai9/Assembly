@@ -1,0 +1,15 @@
+POS                                                                        x300C
+POS1                                                                       x3016
+POS2                                                                       x3020
+INBOUNDS                                                                   x302E
+END                                                                        x3030
+posx                                                                       x3031
+posy                                                                       x3032
+posz                                                                       x3033
+G_X                                                                        x3034
+G_Y                                                                        x3035
+G_Z                                                                        x3036
+GOAL_DIST                                                                  x3037
+OUTSIDE                                                                    x3038
+WITHIN                                                                     x305E
+VAL                                                                        x3092

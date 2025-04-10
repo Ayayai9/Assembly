@@ -1,0 +1,6 @@
+WRITE                                                                      x3006
+POSITIVE                                                                   x300D
+SKIPPOS                                                                    x300F
+NUMBER_TO_CONVERT                                                          x3013
+BLOCK_ID_1                                                                 x3014
+BLOCK_ID_2                                                                 x3015

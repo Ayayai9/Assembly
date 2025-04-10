@@ -1,0 +1,10 @@
+READ1                                                                      x3008
+SKIPTOTAL1                                                                 x300D
+READ2                                                                      x3017
+SKIPTOTAL2                                                                 x301C
+WRITE                                                                      x3027
+POSITIVE                                                                   x302E
+SKIPPOS                                                                    x3030
+TOTAL                                                                      x3034
+BLOCK_ID_1                                                                 x3035
+BLOCK_ID_2                                                                 x3036

@@ -1,0 +1,83 @@
+  ADDR  |  HEX  |      BINARY      |  LN  |  ASSEMBLY
+        |       |                  |    1 | .ORIG x3000 
+        |       |                  |    2 | ;1ST LINE 
+ x3000  | x5DA0 | 0101110110100000 |    3 | AND R6, R6, #0 
+ x3001  | x5B60 | 0101101101100000 |    4 | AND R5, R5, #0 
+ x3002  | x5920 | 0101100100100000 |    5 | AND R4, R4, #0 
+        |       |                  |    6 | 
+ x3003  | x1DAF | 0001110110101111 |    7 | ADD R6, R6, #15 ;counter for reading 16 bits in 1 line 
+ x3004  | x1DA1 | 0001110110100001 |    8 | ADD R6, R6, #1 
+ x3005  | x1921 | 0001100100100001 |    9 | ADD R4, R4, #1 ;POWER
+        |       |                  |   10 | 
+ x3006  | xF031 | 1111000000110001 |   11 | TRAP 0x31 ;get player location
+ x3007  | x14A1 | 0001010010100001 |   12 | ADD R2, R2, #1 ;ADD 1 TO Z AXIS  
+        |       |                  |   13 | 
+        |       |                  |   14 | READ1 ;TOTAL STORED IN R5
+ x3008  | x1021 | 0001000000100001 |   15 |     ADD R0, R0, #1 ;add 1 to x axis 
+ x3009  | xF033 | 1111000000110011 |   16 |     TRAP 0x33 ;get block 
+ x300A  | x16E0 | 0001011011100000 |   17 |     ADD R3, R3, #0 
+ x300B  | x0401 | 0000010000000001 |   18 |     BRz SKIPTOTAL1
+ x300C  | x1B44 | 0001101101000100 |   19 |     ADD R5, R5, R4
+        |       |                  |   20 |     SKIPTOTAL1
+ x300D  | x1904 | 0001100100000100 |   21 |     ADD R4, R4, R4 
+ x300E  | x1DBF | 0001110110111111 |   22 |     ADD R6, R6, #-1 ;minus 1 from 16 counter 
+ x300F  | x03F8 | 0000001111111000 |   23 | BRp READ1 
+        |       |                  |   24 | ;2ND LINE 
+ x3010  | x5DA0 | 0101110110100000 |   25 | AND R6, R6, #0
+ x3011  | x5920 | 0101100100100000 |   26 | AND R4, R4, #0 
+        |       |                  |   27 | 
+ x3012  | x1DAF | 0001110110101111 |   28 | ADD R6, R6, #15 ;counter for reading 16 bits in 1 line 
+ x3013  | x1DA1 | 0001110110100001 |   29 | ADD R6, R6, #1 
+ x3014  | x1921 | 0001100100100001 |   30 | ADD R4, R4, #1 ;POWER
+        |       |                  |   31 | 
+ x3015  | xF031 | 1111000000110001 |   32 | TRAP 0x31 ;get player location
+ x3016  | x14A2 | 0001010010100010 |   33 | ADD R2, R2, #2 ;ADD 2 TO Z AXIS
+        |       |                  |   34 | 
+        |       |                  |   35 | READ2 ;TOTAL STORED IN R5
+ x3017  | x1021 | 0001000000100001 |   36 |     ADD R0, R0, #1 ;add 1 to x axis 
+ x3018  | xF033 | 1111000000110011 |   37 |     TRAP 0x33 ;get block 
+ x3019  | x16E0 | 0001011011100000 |   38 |     ADD R3, R3, #0 
+ x301A  | x0401 | 0000010000000001 |   39 |     BRz SKIPTOTAL2
+ x301B  | x1B44 | 0001101101000100 |   40 |     ADD R5, R5, R4
+        |       |                  |   41 |     SKIPTOTAL2
+ x301C  | x1904 | 0001100100000100 |   42 |     ADD R4, R4, R4 
+ x301D  | x1DBF | 0001110110111111 |   43 |     ADD R6, R6, #-1 ;minus 1 from 16 counter 
+ x301E  | x03F8 | 0000001111111000 |   44 | BRp READ2 
+        |       |                  |   45 | 
+ x301F  | xBA14 | 1011101000010100 |   46 | STI R5, TOTAL
+        |       |                  |   47 | 
+        |       |                  |   48 | ;MINECRAFT
+ x3020  | x5B60 | 0101101101100000 |   49 | AND R5, R5, #0 
+ x3021  | x5920 | 0101100100100000 |   50 | AND R4, R4, #0
+ x3022  | xF031 | 1111000000110001 |   51 | TRAP 0x31 ;GET COORDS 
+ x3023  | x192F | 0001100100101111 |   52 | ADD R4, R4, #15 ;16 COUNTER 
+ x3024  | x1921 | 0001100100100001 |   53 | ADD R4, R4, #1
+ x3025  | x1B61 | 0001101101100001 |   54 | ADD R5, R5, #1 ;STARTING POWER 
+ x3026  | x14A3 | 0001010010100011 |   55 | ADD R2, R2, #3 ;ADD 2 TO Z 
+        |       |                  |   56 | 
+        |       |                  |   57 | WRITE 
+ x3027  | xAC0C | 1010110000001100 |   58 |     LDI R6, TOTAL
+ x3028  | x1021 | 0001000000100001 |   59 |     ADD R0, R0, #1 ;ADD 1 TO X 
+ x3029  | x5D85 | 0101110110000101 |   60 |     AND R6, R6, R5 ;CHECK THE BIT  
+ x302A  | x0A03 | 0000101000000011 |   61 |     BRnp POSITIVE ;IF 1 PRINT BLOCK IF 0 PRINT AIR 
+ x302B  | x2609 | 0010011000001001 |   62 |     LD R3, BLOCK_ID_1
+ x302C  | xF034 | 1111000000110100 |   63 |     TRAP 0x34
+ x302D  | x0E02 | 0000111000000010 |   64 |     BR SKIPPOS
+        |       |                  |   65 | 
+        |       |                  |   66 |     POSITIVE
+ x302E  | x2607 | 0010011000000111 |   67 |     LD R3, BLOCK_ID_2
+ x302F  | xF034 | 1111000000110100 |   68 |     TRAP 0x34
+        |       |                  |   69 |     SKIPPOS
+        |       |                  |   70 | 
+ x3030  | x1B45 | 0001101101000101 |   71 |     ADD R5, R5, R5 ;TIMES BY 2 TO GET NEXT BIT  
+ x3031  | x193F | 0001100100111111 |   72 |     ADD R4, R4, #-1 ;LOOP 16 TIMES 
+ x3032  | x03F4 | 0000001111110100 |   73 | BRp WRITE 
+        |       |                  |   74 | 
+ x3033  | xF025 | 1111000000100101 |   75 | HALT 
+        |       |                  |   76 | 
+ x3034  | x3102 | 0011000100000010 |   77 | TOTAL .FILL x3102 ;TOTAL OF BINARY TO INT 
+        |       |                  |   78 | 
+ x3035  | x0000 | 0000000000000000 |   79 | BLOCK_ID_1 .FILL #0 ;AIR 
+ x3036  | x0001 | 0000000000000001 |   80 | BLOCK_ID_2 .FILL #1 ;COBBLESTONE 
+        |       |                  |   81 | 
+        |       |                  |   82 | .END 

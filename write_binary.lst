@@ -1,0 +1,35 @@
+  ADDR  |  HEX  |      BINARY      |  LN  |  ASSEMBLY
+        |       |                  |    1 | .ORIG x3000 
+ x3000  | x5920 | 0101100100100000 |    2 | AND R4, R4, #0 
+ x3001  | x5B60 | 0101101101100000 |    3 | AND R5, R5, #0 
+        |       |                  |    4 | 
+ x3002  | xF031 | 1111000000110001 |    5 | TRAP 0x31 ;GET COORDS 
+ x3003  | x192F | 0001100100101111 |    6 | ADD R4, R4, #15 ;16 COUNTER 
+ x3004  | x1921 | 0001100100100001 |    7 | ADD R4, R4, #1
+ x3005  | x1B61 | 0001101101100001 |    8 | ADD R5, R5, #1 ;STARTING POWER 
+        |       |                  |    9 | 
+        |       |                  |   10 | WRITE 
+ x3006  | x2C0C | 0010110000001100 |   11 |     LD R6, NUMBER_TO_CONVERT 
+ x3007  | x1021 | 0001000000100001 |   12 |     ADD R0, R0, #1 ;ADD 1 TO X 
+ x3008  | x5D85 | 0101110110000101 |   13 |     AND R6, R6, R5 ;CHECK THE BIT  
+ x3009  | x0A03 | 0000101000000011 |   14 |     BRnp POSITIVE ;IF 1 PRINT BLOCK IF 0 PRINT AIR 
+ x300A  | x2609 | 0010011000001001 |   15 |     LD R3, BLOCK_ID_1
+ x300B  | xF034 | 1111000000110100 |   16 |     TRAP 0x34
+ x300C  | x0E02 | 0000111000000010 |   17 |     BR SKIPPOS
+        |       |                  |   18 | 
+        |       |                  |   19 |     POSITIVE
+ x300D  | x2607 | 0010011000000111 |   20 |     LD R3, BLOCK_ID_2
+ x300E  | xF034 | 1111000000110100 |   21 |     TRAP 0x34
+        |       |                  |   22 |     SKIPPOS
+        |       |                  |   23 | 
+ x300F  | x1B45 | 0001101101000101 |   24 |     ADD R5, R5, R5 ;TIMES BY 2 TO GET NEXT BIT  
+ x3010  | x193F | 0001100100111111 |   25 |     ADD R4, R4, #-1 ;LOOP 16 TIMES 
+ x3011  | x03F4 | 0000001111110100 |   26 | BRp WRITE 
+        |       |                  |   27 | 
+ x3012  | xF025 | 1111000000100101 |   28 | HALT 
+        |       |                  |   29 | 
+ x3013  | x0566 | 0000010101100110 |   30 | NUMBER_TO_CONVERT .FILL #1382  ; Note: Please do not change the name of this constant
+ x3014  | x0000 | 0000000000000000 |   31 | BLOCK_ID_1 .FILL #0
+ x3015  | x0001 | 0000000000000001 |   32 | BLOCK_ID_2 .FILL #1
+        |       |                  |   33 | 
+        |       |                  |   34 | .END 
