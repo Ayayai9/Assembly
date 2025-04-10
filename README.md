@@ -1,8 +1,4 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/Xu7g1ebr)
-# Programming Studio 2 (COSC2804) - Assignment 2
-**Student number:** S3844510
-
-This is the README file for Assignment 2 in Programming Studio 2 (COSC2804).
+# LC-3 Assembly Minecraft Project
 
 The LC-3 virtual machine contained herein is a fork of [this publically available repo](https://github.com/mhashim6/LC3-Virtual-Machine). The original VM has been modified to enable communication with Minecraft, via the mcpp library.
 
